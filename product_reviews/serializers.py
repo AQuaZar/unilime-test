@@ -9,6 +9,18 @@ class ReviewModelSerializer(serializers.ModelSerializer):
         exclude = ('id', 'prodict_aisin')
 
 
+def required(value):
+    if value is None:
+        raise serializers.ValidationError('This field is required')
+
+
+class CreateReviewModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ('prodict_aisin', 'title', 'review',)
+        extra_kwargs = {'prodict_aisin': {'required': True}}
+
+
 class ProductModelSerializer(serializers.ModelSerializer):
     reviews = ReviewModelSerializer(read_only=True, many=True)
     class Meta:
