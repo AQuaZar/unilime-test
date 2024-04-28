@@ -22,6 +22,7 @@ class Review(models.Model):
         Product,
         on_delete=models.SET_NULL,
         verbose_name='product',
+        related_name='reviews',
         null=True,
     )
     title = models.CharField(max_length=255)
